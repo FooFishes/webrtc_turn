@@ -30,7 +30,14 @@ const respond = (body, status, type) =>
     headers: { "content-type": type, "cache-control": "no-store" },
   });
 
-const json = (body, status) => respond(JSON.stringify(body), status, "application/json");
+// Browser clients such as the AndroMeld web panel read credentials cross-origin.
+// The token in the URL is the only credential, so any origin may read them; the
+// setup page stays same-origin because it hands out the token itself.
+const json = (body, status) => {
+  const response = respond(JSON.stringify(body), status, "application/json");
+  response.headers.set("access-control-allow-origin", "*");
+  return response;
+};
 
 const text = (body, status) => respond(body, status, "text/plain; charset=utf-8");
 

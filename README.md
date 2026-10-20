@@ -130,6 +130,7 @@ Sending a `GET` request to your relay URL returns temporary ICE credentials vali
 }
 ```
 
+- Credential responses carry `Access-Control-Allow-Origin: *`, so browser clients such as the AndroMeld web panel can read them.
 - Invalid token returns `401 Unauthorized`.
 - Any other path returns `404 Not Found`.
 

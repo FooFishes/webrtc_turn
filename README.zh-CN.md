@@ -131,6 +131,7 @@ https://turn.example.com/?token=你的ACCESS_TOKEN
 }
 ```
 
+- 凭据响应带 `Access-Control-Allow-Origin: *`，供 AndroMeld Web 面板等浏览器端跨源读取。
 - Token 错误返回 `401 Unauthorized`。
 - 其它未定义路径返回 `404 Not Found`。
 
