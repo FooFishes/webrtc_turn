@@ -62,16 +62,16 @@ Once deployed, paste the assigned `*.workers.dev` URL into your AndroMeld Androi
 Requires a Linux server with a public IP. (Docker Desktop on macOS/Windows is not supported because coturn requires `network_mode: host`.)
 
 ### 1. Point a Domain at Your Server
-Add an A record (e.g., `turn.example.com`) pointing to your server's public IP. The bundled Caddy instance automatically obtains and renews SSL certificates.
+Add an A record (e.g., `turn.example.com`) pointing to your server's public IP.
 
-> **Note**: AndroMeld clients support `https://` only.
+> **Note**: AndroMeld clients support `https://` only. The credential endpoint listens on plain HTTP port `8080`, so put your own HTTPS reverse proxy (Nginx, Caddy, Cloudflare, etc.) in front of it.
 
 ### 2. Open Firewall Ports
 Ensure the following ports are open on your server firewall / cloud security group:
 
 | Port | Protocol | Purpose |
 |---|---|---|
-| `80`, `443` | TCP | Credential API endpoint & SSL certificate issuance |
+| `8080` | TCP | Credential API endpoint (HTTP, for your reverse proxy) |
 | `3478` | TCP & UDP | TURN relay control connections |
 | `49160-49200` | UDP | TURN relayed traffic port range |
 

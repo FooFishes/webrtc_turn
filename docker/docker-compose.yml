@@ -29,19 +29,7 @@ services:
       TURN_URLS: ${TURN_URLS}
     volumes:
       - ./credentials.py:/srv/credentials.py:ro
-    command: ["python3", "/srv/credentials.py"]
-
-  caddy:
-    image: caddy:2
-    restart: unless-stopped
+    # Plain HTTP. Put your own HTTPS reverse proxy in front of it.
     ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      PUBLIC_HOST: ${PUBLIC_HOST}
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-      - caddy-data:/data
-
-volumes:
-  caddy-data:
+      - "8080:8080"
+    command: ["python3", "/srv/credentials.py"]

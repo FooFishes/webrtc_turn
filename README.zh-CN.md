@@ -63,16 +63,16 @@ npm run setup
 适合拥有公网 Linux 服务器的用户。由于 coturn 依赖 `network_mode: host`，**不支持** macOS / Windows 上的 Docker Desktop。
 
 ### 1. 解析域名
-添加一条 DNS A 记录（如 `turn.example.com`）指向服务器的公网 IP。内置的 Caddy 会在首次访问时自动申请并续期 SSL 证书。
+添加一条 DNS A 记录（如 `turn.example.com`）指向服务器的公网 IP。
 
-> **注意**：AndroMeld 各端只支持 `https://` 协议。
+> **注意**：AndroMeld 各端只支持 `https://` 协议。凭据接口监听的是明文 HTTP `8080` 端口，需要你自行在前面架设 HTTPS 反向代理（Nginx、Caddy、Cloudflare 等）。
 
 ### 2. 放行防火墙端口
 确保服务器防火墙及云厂商安全组放行以下端口：
 
 | 端口 | 协议 | 用途 |
 |---|---|---|
-| `80`、`443` | TCP | 凭据分发接口与 SSL 证书申请 |
+| `8080` | TCP | 凭据分发接口（HTTP，供反向代理访问） |
 | `3478` | TCP / UDP | TURN 中转控制连接 |
 | `49160-49200` | UDP | TURN 媒体与数据转发端口段 |
 
